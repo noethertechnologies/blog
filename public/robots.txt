@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.breakthroughsdaily.com
+
+# Sitemaps
+Sitemap: https://www.breakthroughsdaily.com/sitemap.xml

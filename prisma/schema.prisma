@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  email    String    @unique
+  password String
+  comments Comment[] // One-to-many relationship with comments
+}
+
+model Blog {
+  id       Int       @id @default(autoincrement())
+  title    String
+  slug     String    @unique
+  topic    String
+  content  String
+  author   String
+  date     DateTime
+  images   String[] // Field to store multiple image URLs
+  comments Comment[] // One-to-many relationship with comments
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
